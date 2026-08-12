@@ -39,6 +39,11 @@ const sourceAccent: Record<string, string> = {
   "BGS World Earthquakes": "text-seismic-red",
 };
 
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+function fa(value: string | number) {
+  return String(value).replace(/[0-9]/g, (d) => FA_DIGITS[Number(d)]);
+}
+
 function accentOf(source: string) {
   return sourceAccent[source] ?? "text-seismic-brown";
 }
@@ -86,7 +91,7 @@ function Index() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-seismic-red opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-seismic-red" />
               </span>
-              {articles.length} خبر فعال
+              {fa(articles.length)} خبر فعال
             </span>
             <span>
               آخرین بروزرسانی: <strong className="text-foreground">۱۴۰۵/۰۵/۱۱ — ۲۱:۴۴</strong>
@@ -121,7 +126,7 @@ function Index() {
                 {featured.image ? (
                   <img
                     src={featured.image}
-                    alt={featured.title}
+                    alt={fa(featured.title)}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
                 ) : (
@@ -136,10 +141,10 @@ function Index() {
                   {featured.source}
                 </span>
                 <h2 className="text-2xl font-black leading-[1.45] transition-colors group-hover:text-primary sm:text-3xl">
-                  {featured.title}
+                  {fa(featured.title)}
                 </h2>
                 <div className="flex items-center gap-3 text-xs font-semibold text-muted-foreground">
-                  <span>{featured.date}</span>
+                  <span>{fa(featured.date)}</span>
                   <span className="h-1 w-1 rounded-full bg-border" />
                   <span>۱ دقیقه مطالعه</span>
                 </div>
@@ -163,7 +168,7 @@ function Index() {
                   {a.image ? (
                     <img
                       src={a.image}
-                      alt={a.title}
+                      alt={fa(a.title)}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                     />
@@ -176,10 +181,10 @@ function Index() {
                     {a.source}
                   </span>
                   <h3 className="text-base font-bold leading-8 transition-colors group-hover:text-primary">
-                    {a.title}
+                    {fa(a.title)}
                   </h3>
                   <div className="mt-auto flex items-center justify-between pt-3 text-xs font-semibold text-muted-foreground">
-                    <span>{a.date}</span>
+                    <span>{fa(a.date)}</span>
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                       ←
                     </span>
