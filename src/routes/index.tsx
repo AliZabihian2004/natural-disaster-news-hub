@@ -50,8 +50,8 @@ function accentOf(source: string) {
 
 function Fallback({ source }: { source: string }) {
   return (
-    <div className="grain-paper flex h-full w-full items-center justify-center bg-secondary">
-      <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
+    <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(ellipse_at_center,oklch(1_0_0_/_0.08),transparent_70%)]">
+      <span className="font-tech text-[11px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
         {source}
       </span>
     </div>
@@ -79,14 +79,16 @@ function Index() {
           <div>
             <div className="flex items-center gap-3">
               <span className="h-6 w-[3px] seismic-rule" style={{ backgroundImage: "linear-gradient(180deg,var(--seismic-red),var(--seismic-brown),var(--seismic-blue))" }} />
-              <h1 className="text-4xl font-black tracking-tight sm:text-5xl">سرخط خبرها</h1>
+              <h1 className="font-display text-5xl leading-[1.25] sm:text-6xl">
+                <span className="text-seismic-gradient">سرخط</span> خبرها
+              </h1>
             </div>
             <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
               پایش پیوسته رویدادهای سوانح طبیعی جهان؛ زلزله، سیل، آتش‌سوزی و تغییرات اقلیمی.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-            <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 font-bold ring-1 ring-border">
+            <span className="inline-flex items-center gap-2 glass rounded-full px-3 py-1.5 font-bold">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-seismic-red opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-seismic-red" />
@@ -107,7 +109,7 @@ function Index() {
               type="search"
               placeholder="جستجو در اخبار…"
               aria-label="جستجوی اخبار"
-              className="w-full rounded-md border border-border bg-card py-4 pe-12 ps-4 text-sm font-medium outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary focus:ring-4 focus:ring-primary/12"
+              className="glass w-full rounded-xl py-4 pe-12 ps-4 text-sm font-medium outline-none transition-shadow placeholder:text-muted-foreground focus:border-primary/60 focus:ring-4 focus:ring-primary/15"
             />
             <span className="pointer-events-none absolute inset-y-0 end-4 flex items-center text-muted-foreground">
               ⌕
@@ -119,7 +121,7 @@ function Index() {
           {featured ? (
             <a
               href={featured.href}
-              className="fade-up card-lift group grid overflow-hidden rounded-lg border border-border bg-card lg:grid-cols-[1.15fr_1fr]"
+              className="glass glass-lift fade-up group grid overflow-hidden rounded-2xl lg:grid-cols-[1.15fr_1fr]"
               style={{ animationDelay: "140ms" }}
             >
               <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[380px]">
@@ -132,15 +134,15 @@ function Index() {
                 ) : (
                   <Fallback source={featured.source} />
                 )}
-                <span className="absolute end-4 top-4 rounded-sm bg-seismic-red px-3 py-1 text-[11px] font-black text-white shadow-lg">
+                <span className="absolute end-4 top-4 rounded-full bg-seismic-red px-3.5 py-1.5 text-[11px] font-black text-white shadow-[0_8px_24px_-6px_rgba(220,38,38,0.8)]">
                   تازه‌ترین
                 </span>
               </div>
               <div className="flex flex-col justify-center gap-4 p-8 sm:p-12">
-                <span className={`text-[11px] font-black uppercase tracking-[0.22em] ${accentOf(featured.source)}`}>
+                <span className={`font-tech text-[11px] font-bold uppercase tracking-[0.22em] ${accentOf(featured.source)}`}>
                   {featured.source}
                 </span>
-                <h2 className="text-2xl font-black leading-[1.45] transition-colors group-hover:text-primary sm:text-3xl">
+                <h2 className="font-display text-3xl leading-[1.5] sm:text-4xl transition-colors group-hover:text-primary">
                   {fa(featured.title)}
                 </h2>
                 <div className="flex items-center gap-3 text-xs font-semibold text-muted-foreground">
@@ -161,10 +163,10 @@ function Index() {
               <a
                 key={a.href + i}
                 href={a.href}
-                className="fade-up card-lift group flex flex-col overflow-hidden rounded-lg border border-border bg-card"
+                className="glass glass-lift fade-up group flex flex-col overflow-hidden rounded-2xl"
                 style={{ animationDelay: `${Math.min(i, 8) * 60 + 180}ms` }}
               >
-                <div className="aspect-[16/10] overflow-hidden border-b border-border">
+                <div className="aspect-[16/10] overflow-hidden border-b border-white/10">
                   {a.image ? (
                     <img
                       src={a.image}
@@ -177,15 +179,15 @@ function Index() {
                   )}
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6">
-                  <span className={`text-[10px] font-black uppercase tracking-[0.22em] ${accentOf(a.source)}`}>
+                  <span className={`font-tech text-[10px] font-bold uppercase tracking-[0.22em] ${accentOf(a.source)}`}>
                     {a.source}
                   </span>
-                  <h3 className="text-base font-bold leading-8 transition-colors group-hover:text-primary">
+                  <h3 className="text-[17px] font-extrabold leading-8 transition-colors group-hover:text-primary">
                     {fa(a.title)}
                   </h3>
                   <div className="mt-auto flex items-center justify-between pt-3 text-xs font-semibold text-muted-foreground">
                     <span>{fa(a.date)}</span>
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/8 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground">
                       ←
                     </span>
                   </div>
@@ -195,14 +197,14 @@ function Index() {
           </div>
 
           <nav className="mt-14 flex items-center justify-center gap-2 border-t border-border pt-8 text-sm font-bold">
-            <span className="flex h-10 min-w-10 items-center justify-center rounded-sm bg-primary px-3 text-primary-foreground">
+            <span className="flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-3 text-primary-foreground shadow-[0_8px_24px_-8px_rgba(220,38,38,0.9)]">
               ۱
             </span>
             {["۲", "۳"].map((p) => (
               <a
                 key={p}
                 href="#news"
-                className="flex h-10 min-w-10 items-center justify-center rounded-sm border border-border bg-card px-3 transition-colors hover:border-primary hover:text-primary"
+                className="glass glass-lift flex h-10 min-w-10 items-center justify-center rounded-lg px-3 transition-colors hover:text-primary"
               >
                 {p}
               </a>
