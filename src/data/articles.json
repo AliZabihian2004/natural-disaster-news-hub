@@ -1,0 +1,202 @@
+[
+  {
+    "href": "/articles/world-s-oceans-break-june-heat-record-eu-monitor/",
+    "featured": true,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/oceans-store-about-90.jpg",
+    "source": "Phys.org",
+    "title": "اقیانوس‌های جهان رکورد گرمای ژوئن را شکستند: نظارت اتحادیه اروپا",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/cottonwood-fire-chars-utah/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/iotd/2026/cottonwood-fire-chars-utah/utcottonwoodfire_oli_20260629_th.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+    "source": "NASA Earth Observatory",
+    "title": "آتش‌سوزی کاتن‌وود در یوتا",
+    "date": "1405/04/17"
+  },
+  {
+    "href": "/articles/world-earthquake-alert-m-6-8-kyushu-japan-tue-28-jul-2026-07-27-11/",
+    "featured": false,
+    "image": null,
+    "source": "BGS World Earthquakes",
+    "title": "هشدار زلزله جهانی: مقیاس 6.8: کیوشو، ژاپن، دوشنبه، ۲۸ ژوئیه ۲۰۲۶ ۰۷:۲۷:۱۱",
+    "date": "1405/05/06"
+  },
+  {
+    "href": "/articles/nasa-s-juno-peers-beneath-io-s-surface/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia26/pia26756/PIA26756.png/jcr:content/renditions/cq5dam.web.1280.1280.png",
+    "source": "NASA Earth Observatory",
+    "title": "جنو ناسا زیر سطح ایو را می‌نگرد",
+    "date": "1405/04/31"
+  },
+  {
+    "href": "/articles/nasa-s-incus-satellites-progress-toward-launch/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia26/pia26614/PIA26614.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+    "source": "NASA Earth Observatory",
+    "title": "پیشرفت ماهواره‌های INCUS ناسا به سمت پرتاب",
+    "date": "1405/03/18"
+  },
+  {
+    "href": "/articles/mapping-io-s-hidden-heat-with-nasa-s-juno/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/psd/photojournal/pia/pia26/pia26757/PIA26757.png/jcr:content/renditions/cq5dam.web.1280.1280.png",
+    "source": "NASA Earth Observatory",
+    "title": "نقشه‌برداری از گرماهای مخفی ایو با مأموریت جونو ناسا",
+    "date": "1405/04/31"
+  },
+  {
+    "href": "/articles/ontario-wildfire-smoke-moves-east/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/iotd/2026/ontario-wildfire-smoke-drifts-east/ontariofires_virs3_20260714_th.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+    "source": "NASA Earth Observatory",
+    "title": "دودهای آتش‌سوزی در انتاریو به سمت شرق حرکت می‌کند",
+    "date": "1405/04/25"
+  },
+  {
+    "href": "/articles/where-venezuela-s-earthquakes-shifted-the-ground/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/iotd/2026/where-venezuela’s-earthquakes-shifted-the-ground/venezuela_nisar_20260630_th.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+    "source": "NASA Earth Observatory",
+    "title": "چگونه زلزله‌های ونزوئلا سطح زمین را جابه‌جا کردند",
+    "date": "1405/04/19"
+  },
+  {
+    "href": "/articles/super-typhoon-bavi/",
+    "featured": false,
+    "image": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/iotd/2026/super-typhoon-bavi/typhoonbavi_vir_20260705_th.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
+    "source": "NASA Earth Observatory",
+    "title": "طوفان فوق‌العاده باوی",
+    "date": "1405/04/18"
+  },
+  {
+    "href": "/articles/very-dangerous-super-typhoon-nears-us-pacific-islands/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/people-in-guam-and-the-1.jpg",
+    "source": "Phys.org",
+    "title": "طوفان سوپر بسیار خطرناک به جزایر اقیانوس آرام آمریکا نزدیک می‌شود",
+    "date": "1405/04/14"
+  },
+  {
+    "href": "/articles/this-was-something-new-what-people-in-greenland-told-us-about-learning-to-live-with-wildfires/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2026/wildfire-greenland.jpg",
+    "source": "Phys.org",
+    "title": "«این چیز جدیدی بود»: آنچه مردم گرینلند درباره یادگیری زندگی با آتش‌سوزی‌های جنگلی به ما گفتند",
+    "date": "1405/04/13"
+  },
+  {
+    "href": "/articles/rising-seas-make-once-rare-coastal-floods-12-times-more-likely/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2026/climate-change-makes-o.jpg",
+    "source": "Phys.org",
+    "title": "افزایش سطح دریا، سیلاب‌های ساحلی نادر را ۱۲ برابر محتمل‌تر می‌کند",
+    "date": "1405/04/13"
+  },
+  {
+    "href": "/articles/one-for-the-history-books-what-we-know-about-the-european-heat-wave/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/scientists-say-heatwav.jpg",
+    "source": "Phys.org",
+    "title": "یک کتاب تاریخ: آنچه دربارهٔ موج گرمای اروپایی می‌دانیم",
+    "date": "1405/04/13"
+  },
+  {
+    "href": "/articles/greenland-meltwater-adds-to-amoc-weakening-but-updated-model-finds-no-tipping-point-in-sight/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2019/greenland.jpg",
+    "source": "Phys.org",
+    "title": "ذوب یخ گرینلند به تضعیف AMOC می‌افزاید، اما مدل به‌روز هیچ نقطهٔ بحرانی در پیش رو نمی‌بیند",
+    "date": "1405/04/13"
+  },
+  {
+    "href": "/articles/el-nino-set-to-be-strong-un-warns/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/el-nino-warms-surface-2.jpg",
+    "source": "Phys.org",
+    "title": "ال‌نینو به‌سرعت به‌یک پدیدهٔ قوی تبدیل می‌شود؛ سازمان ملل هشدار می‌دهد",
+    "date": "1405/04/13"
+  },
+  {
+    "href": "/articles/dangerous-heat-wave-roasts-america-s-big-birthday-party/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/celebrations-on-the-na.jpg",
+    "source": "Phys.org",
+    "title": "موج گرمای خطرناک جشن تولد بزرگ آمریکا را سوزاند",
+    "date": "1405/04/13"
+  },
+  {
+    "href": "/articles/antarctic-ozone-loss-drove-unexpected-southern-ocean-cooling-climate-model-shows/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2026/antarctic-ozone-loss-d.jpg",
+    "source": "Phys.org",
+    "title": "کاهش اوزون قطبی باعث سرد شدن غیرمنتظره اقیانوس جنوبی شد، مدل‌های اقلیمی نشان می‌دهند",
+    "date": "1405/04/12"
+  },
+  {
+    "href": "/articles/a-benchmark-for-how-different-disturbances-influence-the-loss-and-recovery-of-carbon-and-co₂-in-tropical-forests/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2026/new-pantropical-carbon.jpg",
+    "source": "Phys.org",
+    "title": "معیاری برای ارزیابی تأثیر انواع اختلالات بر از دست رفتن و بازسازی کربن و CO₂ در جنگل‌های گرمسیری",
+    "date": "1405/04/12"
+  },
+  {
+    "href": "/articles/walkable-greener-neighborhoods-linked-to-better-physical-and-mental-health-across-the-u-s/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/how-urban-design-leads.jpg",
+    "source": "Phys.org",
+    "title": "محله‌های قابل‌پیاده‌روی و سبزتر با سلامت جسمی و روانی بهتر در سراسر ایالات متحده مرتبط‌اند",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/venezuela-earthquakes-highlight-the-limits-of-early-warning-systems/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2026/rubble.jpg",
+    "source": "Phys.org",
+    "title": "زلزله‌های ونزوئلا محدودیت‌های سیستم‌های هشدار زودهنگام را نشان می‌دهند",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/scientists-devise-new-method-for-tracing-environmental-pfas-contamination-better/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/scientists-devise-new.jpg",
+    "source": "Phys.org",
+    "title": "دانشمندان روش جدیدی برای ردیابی بهتر آلودگی محیطی پفاس ابداع کردند",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/portugal-braces-for-high-temperatures-in-new-heat-wave/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/temepratures-neared-40.jpg",
+    "source": "Phys.org",
+    "title": "پرتغال برای دماهای بالا در موج گرمای جدید آماده می‌شود",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/perfluorooctanoic-acid-in-the-seto-inland-sea-variability-transport-and-fate/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/hires/2026/pfoa-in-the-seto-inlan.jpg",
+    "source": "Phys.org",
+    "title": "پرفلوئورواکتیک اسید (PFOA) در دریای داخلی سِتو: تغییرات، انتقال و سرنوشت",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/oppressive-heat-broils-us-during-world-cup-july-fourth/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/a-woman-sits-in-the-sh.jpg",
+    "source": "Phys.org",
+    "title": "گرمای خنک‌کننده آمریکا در طول جام جهانی و جشن استقلال",
+    "date": "1405/04/10"
+  },
+  {
+    "href": "/articles/how-giant-earthquakes-can-form-at-fault-planes-where-theory-says-they-should-not/",
+    "featured": false,
+    "image": "https://scx2.b-cdn.net/gfx/news/2026/resolving-the-paradox-1.jpg",
+    "source": "Phys.org",
+    "title": "چگونه زلزله‌های عظیم می‌توانند در سطوح گسل که نظریه می‌گوید نباید شکل بگیرند",
+    "date": "1405/04/10"
+  }
+]
