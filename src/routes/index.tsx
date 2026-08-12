@@ -41,7 +41,7 @@ const sourceAccent: Record<string, string> = {
 
 const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
 function fa(value: string | number) {
-  return String(value).replace(/[0-9]/g, (d) => FA_DIGITS[Number(d)]);
+  return String(value).replace(/[0-9]/g, (d) => FA_DIGITS[Number(d)] ?? d);
 }
 
 function accentOf(source: string) {
