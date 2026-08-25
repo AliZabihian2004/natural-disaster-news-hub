@@ -179,7 +179,7 @@ function Index() {
             فوری
           </span>
           <p className="truncate text-[13px] font-bold text-muted-foreground">
-            {featured ? fa(featured.title) : "خبری موجود نیست"}
+            {alerts[0] ? fa(alerts[0].title) : featured ? fa(featured.title) : "خبری موجود نیست"}
           </p>
         </div>
 
