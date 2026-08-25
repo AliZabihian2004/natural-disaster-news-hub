@@ -138,18 +138,31 @@ function Index() {
     const q = query.trim().toLowerCase();
     return articles.filter(
       (a) =>
+        a.category !== "alert" &&
         (tab === "all" || a.category === tab) &&
         (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
     );
   }, [query, tab]);
 
+  const alerts = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return articles.filter(
+      (a) =>
+        a.category === "alert" &&
+        (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
+    );
+  }, [query]);
+
+  const showAlerts = tab === "all" || tab === "alert";
+  const showFeed = tab !== "alert";
+
   const featured = filtered[0];
   const centerRest = filtered.slice(1, 7);
   const more = filtered.slice(7);
 
-  const alerts = useMemo(() => articles.filter((a) => a.category === "alert").slice(0, 5), []);
   const papers = useMemo(() => articles.filter((a) => a.category === "article").slice(0, 4), []);
-  const latest = useMemo(() => articles.slice(0, 6), []);
+  const latest = useMemo(() => articles.filter((a) => a.category !== "alert").slice(0, 6), []);
+
 
   return (
     <div className="flex min-h-screen flex-col" dir="rtl">
@@ -166,7 +179,7 @@ function Index() {
             فوری
           </span>
           <p className="truncate text-[13px] font-bold text-muted-foreground">
-            {featured ? fa(featured.title) : "خبری موجود نیست"}
+            {alerts[0] ? fa(alerts[0].title) : featured ? fa(featured.title) : "خبری موجود نیست"}
           </p>
         </div>
 
@@ -201,17 +214,53 @@ function Index() {
           </div>
         </div>
 
+        {/* alerts board — full text, no cards */}
+        {showAlerts && alerts.length > 0 && (
+          <section id="alerts" className="fade-up mt-8" style={{ animationDelay: "100ms" }}>
+            <div className="glass-strong rounded-2xl p-5 sm:p-7">
+              <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="h-5 w-[3px] rounded-full bg-seismic-red" />
+                  <h2 className="font-display text-2xl leading-[1.6]">تابلوی هشدارها</h2>
+                </div>
+                <span className="font-tech rounded-full border border-seismic-red/30 bg-seismic-red/15 px-3 py-1 text-[11px] font-bold text-seismic-red">
+                  {fa(alerts.length)}
+                </span>
+              </div>
+              <ul className="grid gap-4 md:grid-cols-2">
+                {alerts.map((a, i) => (
+                  <li
+                    key={a.href + i}
+                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-seismic-red/40"
+                  >
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
+                      <CategoryChip category="alert" />
+                      <span className="font-tech text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                        {a.source}
+                      </span>
+                      <span className="ms-auto text-[11px] font-semibold text-muted-foreground">{fa(a.date)}</span>
+                    </div>
+                    <a
+                      href={a.href}
+                      className="block text-[14px] font-bold leading-8 transition-colors hover:text-seismic-red"
+                    >
+                      {fa(a.title)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
         {/* newspaper layout */}
+        {showFeed && (
         <div className="mt-8 grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)_280px]">
           {/* right sidebar (first in RTL) */}
           <aside className="fade-up order-2 lg:order-1" style={{ animationDelay: "120ms" }}>
+
             <div className="glass rounded-2xl p-5">
-              <SideTitle title="هشدارها" accent="bg-seismic-red" />
-              {alerts.map((a, i) => (
-                <SideItem key={a.href + i} a={a} />
-              ))}
-            </div>
-            <div className="glass mt-6 rounded-2xl p-5">
+
               <SideTitle title="مقالات" accent="bg-seismic-blue" />
               {papers.map((a, i) => (
                 <SideItem key={a.href + i} a={a} />
@@ -342,6 +391,8 @@ function Index() {
             </div>
           </aside>
         </div>
+        )}
+
       </main>
 
       <SiteFooter />
