@@ -259,7 +259,8 @@ function Index() {
           {/* right sidebar (first in RTL) */}
           <aside className="fade-up order-2 lg:order-1" style={{ animationDelay: "120ms" }}>
 
-            <div className="glass mt-6 rounded-2xl p-5">
+            <div className="glass rounded-2xl p-5">
+
               <SideTitle title="مقالات" accent="bg-seismic-blue" />
               {papers.map((a, i) => (
                 <SideItem key={a.href + i} a={a} />
