@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import articlesData from "@/data/articles.json";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 
@@ -130,61 +130,148 @@ function SideItem({ a, index }: { a: Article; index?: number }) {
   );
 }
 
+function AlertTicker({ alerts }: { alerts: Article[] }) {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (alerts.length <= 1 || paused) return;
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % alerts.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [alerts.length, paused]);
+
+  const current = alerts[index];
+  if (!current) return null;
+
+  return (
+    <div
+      className="glass fade-up flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-seismic-red px-3 py-1 text-[11px] font-black text-white">
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+        </span>
+        فوری
+      </span>
+      <div className="min-w-0 flex-1">
+        <a
+          href={current.href}
+          className="block truncate text-[13px] font-bold transition-colors hover:text-seismic-red"
+          title={fa(current.title)}
+        >
+          {fa(current.title)}
+        </a>
+      </div>
+      {alerts.length > 1 && (
+        <div className="flex shrink-0 gap-1">
+          {alerts.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setIndex(i)}
+              className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                i === index ? "bg-seismic-red" : "bg-white/25 hover:bg-white/50"
+              }`}
+              aria-label={`هشدار ${fa(i + 1)}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AlertsList({ alerts }: { alerts: Article[] }) {
+  if (alerts.length === 0) {
+    return (
+      <p className="py-24 text-center text-sm text-muted-foreground">مطلبی با این عبارت یافت نشد.</p>
+    );
+  }
+
+  return (
+    <div className="fade-up">
+      <div className="mb-5 flex items-center gap-2.5">
+        <span className="h-5 w-[3px] rounded-full bg-seismic-red" />
+        <h2 className="font-display text-2xl leading-[1.6]">هشدارها</h2>
+        <span className="font-tech rounded-full border border-seismic-red/30 bg-seismic-red/15 px-3 py-1 text-[11px] font-bold text-seismic-red">
+          {fa(alerts.length)}
+        </span>
+      </div>
+      <ul className="grid gap-4 md:grid-cols-2">
+        {alerts.map((a, i) => (
+          <li
+            key={a.href + i}
+            className="glass rounded-2xl border border-white/10 p-4 transition-colors hover:border-seismic-red/40"
+          >
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <CategoryChip category="alert" />
+              <span className="font-tech text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                {a.source}
+              </span>
+              <span className="ms-auto text-[11px] font-semibold text-muted-foreground">{fa(a.date)}</span>
+            </div>
+            <a
+              href={a.href}
+              className="block text-[14px] font-bold leading-8 transition-colors hover:text-seismic-red"
+            >
+              {fa(a.title)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Index() {
   const [query, setQuery] = useState("");
   const [tab, setTab] = useState<"all" | Category>("all");
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+  const q = useMemo(() => query.trim().toLowerCase(), [query]);
+
+  const alerts = useMemo(() => {
+    return articles.filter(
+      (a) =>
+        a.category === "alert" &&
+        (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
+    );
+  }, [q]);
+
+  const feed = useMemo(() => {
+    if (tab === "alert") return [];
     return articles.filter(
       (a) =>
         a.category !== "alert" &&
         (tab === "all" || a.category === tab) &&
         (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
     );
-  }, [query, tab]);
+  }, [q, tab]);
 
-  const alerts = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return articles.filter(
-      (a) =>
-        a.category === "alert" &&
-        (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
-    );
-  }, [query]);
-
-  const showAlerts = tab === "all" || tab === "alert";
-  const showFeed = tab !== "alert";
-
-  const featured = filtered[0];
-  const centerRest = filtered.slice(1, 7);
-  const more = filtered.slice(7);
+  const featured = feed[0];
+  const centerRest = feed.slice(1, 7);
+  const more = feed.slice(7);
 
   const papers = useMemo(() => articles.filter((a) => a.category === "article").slice(0, 4), []);
   const latest = useMemo(() => articles.filter((a) => a.category !== "alert").slice(0, 6), []);
-
 
   return (
     <div className="flex min-h-screen flex-col" dir="rtl">
       <SiteHeader />
 
       <main className="mx-auto w-full max-w-[1320px] flex-1 px-4 pt-8 sm:px-8">
-        {/* breaking bar */}
-        <div className="glass fade-up flex items-center gap-3 overflow-hidden rounded-xl px-4 py-3">
-          <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-seismic-red px-3 py-1 text-[11px] font-black text-white">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-            </span>
-            فوری
-          </span>
-          <p className="truncate text-[13px] font-bold text-muted-foreground">
-            {alerts[0] ? fa(alerts[0].title) : featured ? fa(featured.title) : "خبری موجود نیست"}
-          </p>
-        </div>
+        {/* urgent alert ticker */}
+        <AlertTicker alerts={alerts} />
 
         {/* tabs + search */}
-        <div className="fade-up mt-6 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5" style={{ animationDelay: "60ms" }}>
+        <div
+          className="fade-up mt-6 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5"
+          style={{ animationDelay: "60ms" }}
+        >
           <div className="flex flex-wrap gap-2">
             {TABS.map((t) => (
               <button
@@ -210,57 +297,17 @@ function Index() {
               aria-label="جستجوی مطالب"
               className="glass w-full rounded-xl py-3 pe-10 ps-4 text-[13px] font-medium outline-none placeholder:text-muted-foreground focus:border-primary/60 focus:ring-4 focus:ring-primary/15"
             />
-            <span className="pointer-events-none absolute inset-y-0 end-4 flex items-center text-muted-foreground">⌕</span>
+            <span className="pointer-events-none absolute inset-y-0 end-4 flex items-center text-muted-foreground">
+              ⌕
+            </span>
           </div>
         </div>
 
-        {/* alerts board — full text, no cards */}
-        {showAlerts && alerts.length > 0 && (
-          <section id="alerts" className="fade-up mt-8" style={{ animationDelay: "100ms" }}>
-            <div className="glass-strong rounded-2xl p-5 sm:p-7">
-              <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-                <div className="flex items-center gap-2.5">
-                  <span className="h-5 w-[3px] rounded-full bg-seismic-red" />
-                  <h2 className="font-display text-2xl leading-[1.6]">تابلوی هشدارها</h2>
-                </div>
-                <span className="font-tech rounded-full border border-seismic-red/30 bg-seismic-red/15 px-3 py-1 text-[11px] font-bold text-seismic-red">
-                  {fa(alerts.length)}
-                </span>
-              </div>
-              <ul className="grid gap-4 md:grid-cols-2">
-                {alerts.map((a, i) => (
-                  <li
-                    key={a.href + i}
-                    className="rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-seismic-red/40"
-                  >
-                    <div className="mb-2 flex flex-wrap items-center gap-2">
-                      <CategoryChip category="alert" />
-                      <span className="font-tech text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        {a.source}
-                      </span>
-                      <span className="ms-auto text-[11px] font-semibold text-muted-foreground">{fa(a.date)}</span>
-                    </div>
-                    <a
-                      href={a.href}
-                      className="block text-[14px] font-bold leading-8 transition-colors hover:text-seismic-red"
-                    >
-                      {fa(a.title)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
-
         {/* newspaper layout */}
-        {showFeed && (
         <div className="mt-8 grid gap-8 lg:grid-cols-[260px_minmax(0,1fr)_280px]">
           {/* right sidebar (first in RTL) */}
           <aside className="fade-up order-2 lg:order-1" style={{ animationDelay: "120ms" }}>
-
             <div className="glass rounded-2xl p-5">
-
               <SideTitle title="مقالات" accent="bg-seismic-blue" />
               {papers.map((a, i) => (
                 <SideItem key={a.href + i} a={a} />
@@ -270,94 +317,102 @@ function Index() {
 
           {/* center column */}
           <section id="news" className="order-1 lg:order-2">
-            {featured ? (
-              <a
-                href={featured.href}
-                className="glass glass-lift fade-up group block overflow-hidden rounded-2xl"
-                style={{ animationDelay: "80ms" }}
-              >
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  {featured.image ? (
-                    <img
-                      src={featured.image}
-                      alt={fa(featured.title)}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    />
-                  ) : (
-                    <Fallback source={featured.source} />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-6 sm:p-8">
-                    <div className="flex items-center gap-2">
-                      <CategoryChip category={featured.category} />
-                      <span className="font-tech text-[10px] font-bold uppercase tracking-[0.22em] text-white/70">
-                        {featured.source}
-                      </span>
-                    </div>
-                    <h1 className="font-display text-2xl leading-[1.5] text-white sm:text-4xl">
-                      {fa(featured.title)}
-                    </h1>
-                    <span className="text-xs font-semibold text-white/70">{fa(featured.date)}</span>
-                  </div>
-                </div>
-              </a>
+            {tab === "alert" ? (
+              <AlertsList alerts={alerts} />
             ) : (
-              <p className="py-24 text-center text-sm text-muted-foreground">مطلبی با این عبارت یافت نشد.</p>
-            )}
-
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              {centerRest.map((a, i) => (
-                <a
-                  key={a.href + i}
-                  href={a.href}
-                  className="glass glass-lift fade-up group flex flex-col overflow-hidden rounded-2xl"
-                  style={{ animationDelay: `${i * 60 + 160}ms` }}
-                >
-                  <div className="aspect-[16/10] overflow-hidden border-b border-white/10">
-                    {a.image ? (
-                      <img
-                        src={a.image}
-                        alt={fa(a.title)}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                      />
-                    ) : (
-                      <Fallback source={a.source} />
-                    )}
-                  </div>
-                  <div className="flex flex-1 flex-col gap-3 p-5">
-                    <CategoryChip category={a.category} className="self-start" />
-                    <h3 className="text-[15px] font-extrabold leading-7 transition-colors group-hover:text-primary">
-                      {fa(a.title)}
-                    </h3>
-                    <div className="mt-auto flex items-center justify-between pt-2 text-[11px] font-semibold text-muted-foreground">
-                      <span>{fa(a.date)}</span>
-                      <span className="font-tech uppercase tracking-[0.18em]">{a.source}</span>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {more.length > 0 && (
-              <div className="glass mt-6 rounded-2xl p-5">
-                <SideTitle title="سایر مطالب" accent="bg-seismic-brown" />
-                {more.map((a, i) => (
+              <>
+                {featured ? (
                   <a
-                    key={a.href + i}
-                    href={a.href}
-                    className="group flex items-center gap-3 border-b border-white/8 py-3 last:border-0"
+                    href={featured.href}
+                    className="glass glass-lift fade-up group block overflow-hidden rounded-2xl"
+                    style={{ animationDelay: "80ms" }}
                   >
-                    <CategoryChip category={a.category} />
-                    <h3 className="line-clamp-2 flex-1 text-[13px] font-bold leading-6 transition-colors group-hover:text-primary">
-                      {fa(a.title)}
-                    </h3>
-                    <span className="hidden shrink-0 text-[11px] font-semibold text-muted-foreground sm:block">
-                      {fa(a.date)}
-                    </span>
+                    <div className="relative aspect-[16/9] overflow-hidden">
+                      {featured.image ? (
+                        <img
+                          src={featured.image}
+                          alt={fa(featured.title)}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                        />
+                      ) : (
+                        <Fallback source={featured.source} />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-6 sm:p-8">
+                        <div className="flex items-center gap-2">
+                          <CategoryChip category={featured.category} />
+                          <span className="font-tech text-[10px] font-bold uppercase tracking-[0.22em] text-white/70">
+                            {featured.source}
+                          </span>
+                        </div>
+                        <h1 className="font-display text-2xl leading-[1.5] text-white sm:text-4xl">
+                          {fa(featured.title)}
+                        </h1>
+                        <span className="text-xs font-semibold text-white/70">{fa(featured.date)}</span>
+                      </div>
+                    </div>
                   </a>
-                ))}
-              </div>
+                ) : (
+                  <p className="py-24 text-center text-sm text-muted-foreground">
+                    مطلبی با این عبارت یافت نشد.
+                  </p>
+                )}
+
+                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                  {centerRest.map((a, i) => (
+                    <a
+                      key={a.href + i}
+                      href={a.href}
+                      className="glass glass-lift fade-up group flex flex-col overflow-hidden rounded-2xl"
+                      style={{ animationDelay: `${i * 60 + 160}ms` }}
+                    >
+                      <div className="aspect-[16/10] overflow-hidden border-b border-white/10">
+                        {a.image ? (
+                          <img
+                            src={a.image}
+                            alt={fa(a.title)}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                          />
+                        ) : (
+                          <Fallback source={a.source} />
+                        )}
+                      </div>
+                      <div className="flex flex-1 flex-col gap-3 p-5">
+                        <CategoryChip category={a.category} className="self-start" />
+                        <h3 className="text-[15px] font-extrabold leading-7 transition-colors group-hover:text-primary">
+                          {fa(a.title)}
+                        </h3>
+                        <div className="mt-auto flex items-center justify-between pt-2 text-[11px] font-semibold text-muted-foreground">
+                          <span>{fa(a.date)}</span>
+                          <span className="font-tech uppercase tracking-[0.18em]">{a.source}</span>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                {more.length > 0 && (
+                  <div className="glass mt-6 rounded-2xl p-5">
+                    <SideTitle title="سایر مطالب" accent="bg-seismic-brown" />
+                    {more.map((a, i) => (
+                      <a
+                        key={a.href + i}
+                        href={a.href}
+                        className="group flex items-center gap-3 border-b border-white/8 py-3 last:border-0"
+                      >
+                        <CategoryChip category={a.category} />
+                        <h3 className="line-clamp-2 flex-1 text-[13px] font-bold leading-6 transition-colors group-hover:text-primary">
+                          {fa(a.title)}
+                        </h3>
+                        <span className="hidden shrink-0 text-[11px] font-semibold text-muted-foreground sm:block">
+                          {fa(a.date)}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </section>
 
@@ -391,8 +446,6 @@ function Index() {
             </div>
           </aside>
         </div>
-        )}
-
       </main>
 
       <SiteFooter />
