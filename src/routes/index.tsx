@@ -390,6 +390,8 @@ function Index() {
             </div>
           </aside>
         </div>
+        )}
+
       </main>
 
       <SiteFooter />
