@@ -138,18 +138,31 @@ function Index() {
     const q = query.trim().toLowerCase();
     return articles.filter(
       (a) =>
+        a.category !== "alert" &&
         (tab === "all" || a.category === tab) &&
         (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
     );
   }, [query, tab]);
 
+  const alerts = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return articles.filter(
+      (a) =>
+        a.category === "alert" &&
+        (!q || a.title.toLowerCase().includes(q) || a.source.toLowerCase().includes(q)),
+    );
+  }, [query]);
+
+  const showAlerts = tab === "all" || tab === "alert";
+  const showFeed = tab !== "alert";
+
   const featured = filtered[0];
   const centerRest = filtered.slice(1, 7);
   const more = filtered.slice(7);
 
-  const alerts = useMemo(() => articles.filter((a) => a.category === "alert").slice(0, 5), []);
   const papers = useMemo(() => articles.filter((a) => a.category === "article").slice(0, 4), []);
-  const latest = useMemo(() => articles.slice(0, 6), []);
+  const latest = useMemo(() => articles.filter((a) => a.category !== "alert").slice(0, 6), []);
+
 
   return (
     <div className="flex min-h-screen flex-col" dir="rtl">
